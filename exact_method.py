@@ -1,6 +1,6 @@
-from cheapest_insertion import stsp_cheapest_insertion
-from nearest_neighbour_adaption import stsp_nearest_neighbour
-from path_utilities import tour_length_adjacency_matrix
+from heuristics.cheapest_insertion import stsp_cheapest_insertion
+from heuristics.nearest_neighbour_adaption import stsp_nearest_neighbour
+
 
 # exact algorithm as outlined by Laporte & Martello (1988)
 
@@ -13,7 +13,12 @@ def stsp_exact_algorithm(adjacency_matrix, max_cost):
     evaluate_results(h1_result, h2_result, adjacency_matrix, max_cost)
 
 def calculate_upper_bound(adjacency_matrix, max_cost):
+
     pass
+    # exact continuous knapsack problem algorithm
+
+
 
 def evaluate_results(first_result, second_result, adjacency_matrix, max_cost):
     pass
+

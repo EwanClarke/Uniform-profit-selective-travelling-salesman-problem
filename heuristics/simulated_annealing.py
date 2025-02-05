@@ -1,7 +1,3 @@
-from path_utilities import *
-import numpy as np
-
-
 def simulated_annealing(adjacency_matrix, initial_temperature, cooling_rate, max_iterations):
     # generate an initial route, calculate its length
     # set the initial temperature and cooling rate

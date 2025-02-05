@@ -19,15 +19,13 @@ def stsp_cheapest_insertion(adjacency_matrix: [[int]], max_cost: int):
     while len(current_tour) < len(adjacency_matrix)+1:
         cheapest_insertion_for_each_position = []
         cheapest_insertion_node_for_each_position = []
-        for i in range(0, current_tour.size-1):
-            previous_node, next_node = current_tour[i], current_tour[i+1]
+        for previous_node, next_node in zip(current_tour, current_tour[1:]):
             insertion_deltas = construct_list_of_insertion_deltas(adjacency_matrix, previous_node, next_node)
             cheapest_insertion = find_cheapest_candidate_insertion_delta(insertion_deltas, nodes_in_tour)
             cheapest_insertion_node = find_cheapest_candidate_insertion_node(insertion_deltas, cheapest_insertion,
                                                                              nodes_in_tour)
             cheapest_insertion_for_each_position.append(cheapest_insertion)
             cheapest_insertion_node_for_each_position.append(cheapest_insertion_node)
-
         cheapest_insertion_index = cheapest_insertion_for_each_position.index(min(cheapest_insertion_for_each_position))
         if cheapest_insertion_for_each_position[cheapest_insertion_index] + tour_length <= max_cost:
             current_tour = np.insert(current_tour, cheapest_insertion_index+1, cheapest_insertion_node_for_each_position[cheapest_insertion_index])

@@ -1,4 +1,3 @@
-import numpy as np
 from path_utilities import *
 
 def nearest_neighbour(path):
@@ -22,23 +21,22 @@ def nearest_neighbour(path):
 def stsp_nearest_neighbour(adjacency_matrix, max_cost):
     distance_remaining = max_cost
     current_node = 0
-    visited_nodes = []
-    path = []
-    path.append(0)
-    visited_nodes.append(0)
+    visited_nodes = {0}
+    path = [0]
     candidate_nodes = find_candidate_nodes(adjacency_matrix, current_node, visited_nodes, distance_remaining)
     while len(candidate_nodes) > 0:
         current_node = candidate_nodes[0][0]
         path.append(current_node)
-        visited_nodes.append(current_node)
+        visited_nodes.add(current_node)
         distance_remaining -= candidate_nodes[0][1]
         candidate_nodes = find_candidate_nodes(adjacency_matrix, current_node, visited_nodes, distance_remaining)
-    return path.append(0)
+    path.append(0)
+    return path
 
 def find_candidate_nodes(adjacency_matrix, current_node, visited_nodes, distance_remaining):
     candidate_nodes = []
     for i, distance in enumerate(adjacency_matrix[current_node]):
-        if i not in visited_nodes and distance < distance_remaining:
+        if i not in visited_nodes and distance + adjacency_matrix[i][0] < distance_remaining:
             candidate_nodes.append((i,distance))
     if len(candidate_nodes) > 0:
         return sorted(candidate_nodes, key=lambda node: node[1])

@@ -1,8 +1,15 @@
 from path_utilities import *
 from heapq import heapify, heappush, heappop
-from edge_improvement import EdgeImprovement
 
 # TODO: reimplement 2-opt to use adjacency matrix instead of node objects and edge improvement objects
+class EdgeImprovement:
+    def __init__(self, node_id, improvement):
+        self.node_id = node_id
+        self.improvement = improvement
+
+    def __lt__(self, other):
+        return self.improvement < other.improvement
+
 
 def two_opt(path):
     total_nodes = len(path)
