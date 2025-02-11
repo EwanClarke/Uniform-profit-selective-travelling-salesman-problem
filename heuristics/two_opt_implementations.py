@@ -1,7 +1,7 @@
-from path_utilities import *
+from heuristics.utils import path_length, swap_edges
 from heapq import heapify, heappush, heappop
 
-# TODO: reimplement 2-opt to use adjacency matrix instead of node objects and edge improvement objects
+# TODO: reimplement 2-opt to use adjacency matrix instead of node and edge improvement objects
 class EdgeImprovement:
     def __init__(self, node_id, improvement):
         self.node_id = node_id

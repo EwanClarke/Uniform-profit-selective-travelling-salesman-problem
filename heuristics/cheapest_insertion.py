@@ -1,5 +1,5 @@
 import numpy as np
-
+from heuristics.utils import runtime_counter
     # step 1
     # find node to insert with minimal ratio (d0j + dj0)/h
     # step 2
@@ -9,7 +9,7 @@ import numpy as np
     # repeat until no more exist which meet the requirement
 
     # O(n^2 log n)
-def stsp_cheapest_insertion(adjacency_matrix: [[int]], max_cost: int):
+def stsp_cheapest_insertion(adjacency_matrix: np.array([[int]]), max_cost: int):
     previous_node = 0
     next_node = 0
     current_tour = np.array([0,0])
@@ -55,6 +55,6 @@ def find_cheapest_candidate_insertion_node(insertion_deltas, cheapest_insertion_
     return node_to_insert
 
     # step 3
-    # apply GENIUS to the tour to find a shorter tour, only US part of GENIUS
+    # apply US procedure (GENIUS) from to the tour to find a shorter tour
     # unstringing - consider both implementations for k-neighbours as defined by neighbourhood size
     # if a shorter tour is not found stop, otherwise go back to step 2

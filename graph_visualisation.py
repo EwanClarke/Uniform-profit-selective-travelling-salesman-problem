@@ -118,6 +118,6 @@ def display_networkx_positional(adjacency_matrix, no_of_nodes, path_indexes, pos
         solution_adjacency_matrix[current_node][next_node] = adjacency_matrix[current_node][next_node]
 
     solution_G = nx.from_numpy_array(solution_adjacency_matrix.astype(float), create_using=nx.DiGraph)
-    nx.draw(solution_G, pos=pos, with_labels=True, node_size = 300, node_color = 'r')
-    nx.draw_networkx_edge_labels(solution_G, pos=pos, edge_labels=solution_weights, font_size=10)
+    nx.draw(solution_G, pos=pos, with_labels=True, node_size = 300, node_color = 'r', font_size=6)
+    nx.draw_networkx_edge_labels(solution_G, pos=pos, edge_labels=solution_weights, font_size=6)
     plt.show()
