@@ -1,7 +1,6 @@
 import numpy as np
 import random
-from algorithms.utils import find_candidate_nodes
-from utils import determine_best_tour
+from algorithms.utils import find_candidate_nodes, determine_best_tour
 
 
 # make a copy of the adjacency matrix and fill with 1s in place of non-zero edge weights

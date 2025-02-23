@@ -1,6 +1,6 @@
 from algorithms.cheapest_insertion import stsp_cheapest_insertion
 from algorithms.nearest_neighbour_adaption import stsp_nearest_neighbour
-from utils import determine_best_tour, tour_length_adjacency_matrix
+from algorithms.utils import determine_best_tour, tour_length_adjacency_matrix
 
 
 def stsp_exact_algorithm(adjacency_matrix, max_cost):

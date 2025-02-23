@@ -2,8 +2,8 @@ from algorithms.cheapest_insertion import stsp_cheapest_insertion
 from algorithms.nearest_neighbour_adaption import stsp_nearest_neighbour
 from algorithms.ant_colony_optimisation import stsp_ant_colony_optimisation
 from graph_visualisation import construct_networkx_visualisation_positional
-from utils import tour_length_adjacency_matrix
-from exact_method import stsp_exact_algorithm
+from algorithms.utils import tour_length_adjacency_matrix
+from algorithms.exact_method import stsp_exact_algorithm
 from generate_problem import random_path, calculate_complete_graph_adjacency_matrix
 
 from random import randrange
