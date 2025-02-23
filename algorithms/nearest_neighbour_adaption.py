@@ -1,5 +1,5 @@
-from heuristics.utils import swap_edges
-from heuristics.utils import runtime_counter
+from algorithms.utils import swap_edges, find_candidate_nodes
+
 
 def nearest_neighbour(path):
     visited_nodes = []
@@ -18,6 +18,7 @@ def nearest_neighbour(path):
         swap_edges(path, i, nearest_node_index)
     return path
 
+
 # O(n^2)
 def stsp_nearest_neighbour(adjacency_matrix, max_cost):
     distance_remaining = max_cost
@@ -33,15 +34,3 @@ def stsp_nearest_neighbour(adjacency_matrix, max_cost):
         candidate_nodes = find_candidate_nodes(adjacency_matrix, current_node, visited_nodes, distance_remaining)
     path.append(0)
     return path
-
-def find_candidate_nodes(adjacency_matrix, current_node, visited_nodes, distance_remaining):
-    candidate_nodes = []
-    for i, distance in enumerate(adjacency_matrix[current_node]):
-        if i not in visited_nodes and distance + adjacency_matrix[i][0] < distance_remaining: # distance to depot node not considered in original formulation
-            candidate_nodes.append((i,distance))
-    if len(candidate_nodes) > 0:
-        return sorted(candidate_nodes, key=lambda node: node[1])
-    return []
-
-
-

@@ -1,5 +1,8 @@
-from heuristics.utils import path_length, swap_edges
+from algorithms.utils import path_length, swap_edges
 from heapq import heapify, heappush, heappop
+from utils import tour_length_adjacency_matrix
+from random import shuffle
+
 
 # TODO: reimplement 2-opt to use adjacency matrix instead of node and edge improvement objects
 class EdgeImprovement:
@@ -11,22 +14,30 @@ class EdgeImprovement:
         return self.improvement < other.improvement
 
 
-def two_opt(path):
-    total_nodes = len(path)
+def random_path_adjacency_matrix(path_length):
+    path = list(range(0, path_length))
+    shuffle(path)
+    return path
+
+
+def two_opt(adjacency_matrix):
+    total_nodes = len(adjacency_matrix)
+    path = random_path_adjacency_matrix(total_nodes)
     found_improvement = True
-    current_length = path_length(path)
+    current_length = tour_length_adjacency_matrix(adjacency_matrix, path)
 
     while found_improvement:
         found_improvement = False
-        for i in range(0, total_nodes-1):
-            for j in range(i+2, total_nodes):
-                length_delta = (-path[i].calculate_distance(path[i+1]) - path[j].calculate_distance(path[(j+1)%total_nodes]) +
-                                path[i].calculate_distance(path[j]) + path[i+1].calculate_distance(path[(j+1)%total_nodes]))
+        for i in range(0, total_nodes - 1):
+            for j in range(i + 2, total_nodes):
+                length_delta = (-adjacency_matrix[path[i]][path[i + 1]] - adjacency_matrix[path[j]][
+                    path[(j + 1) % total_nodes]]) + (adjacency_matrix[path[i]][path[j]] + adjacency_matrix[path[i + 1]][path[(j + 1)% total_nodes]])
 
                 if length_delta < 0:
-                    swap_edges(path, i, j)
+                    path = swap_edges(path, i, j)
                     current_length += length_delta
                     found_improvement = True
+    return path
 
 
 def modified_two_opt(path, max_cost: int):
@@ -59,7 +70,8 @@ def modified_two_opt(path, max_cost: int):
             next_index = 0
             index_after_next = 1
 
-        length_delta = (-path[i].calculate_distance(path[next_index]) - path[next_index].calculate_distance(path[index_after_next]) +
+        length_delta = (-path[i].calculate_distance(path[next_index]) - path[next_index].calculate_distance(
+            path[index_after_next]) +
                         path[i].calculate_distance(path[index_after_next]))
 
         if length_delta < 0:
@@ -92,11 +104,12 @@ def modified_two_opt(path, max_cost: int):
         index_after_next = index + 2
         if index == len(path) - 2:
             index_after_next = 0
-        elif index == len(path)-1:
+        elif index == len(path) - 1:
             next_index = 0
             index_after_next = 1
 
-        length_delta = (-path[index].calculate_distance(path[next_index]) - path[next_index].calculate_distance(path[index_after_next]) +
+        length_delta = (-path[index].calculate_distance(path[next_index]) - path[next_index].calculate_distance(
+            path[index_after_next]) +
                         path[index].calculate_distance(path[index_after_next]))
 
         heappush(removed_edge_improvements, EdgeImprovement(edge_improvement.node_id, length_delta))
@@ -119,5 +132,3 @@ def modified_two_opt(path, max_cost: int):
                     current_length += length_delta
                     found_improvement = True
     return removed_nodes
-
-

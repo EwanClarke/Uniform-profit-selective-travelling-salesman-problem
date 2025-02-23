@@ -14,3 +14,6 @@ class Node:
 
     def get_node_id(self):
         return self.id
+
+    def get_coords(self):
+        return [self.x, self.y]

@@ -3,11 +3,13 @@ from random import randrange
 import pandas as pd
 import numpy as np
 
-def random_path(no_of_nodes:int, value_range:int):
+
+def random_path(no_of_nodes: int, value_range: int):
     nodes = []
     for i in range(0, no_of_nodes):
         nodes.append(Node(i, randrange(0, value_range), randrange(0, value_range)))
     return nodes
+
 
 def calculate_complete_graph_adjacency_matrix(complete_graph_nodes: [Node]):
     adjacency_matrix = pd.DataFrame(columns=[node.get_node_id() for node in complete_graph_nodes])
@@ -17,8 +19,9 @@ def calculate_complete_graph_adjacency_matrix(complete_graph_nodes: [Node]):
     adjacency_matrix.index = [node.get_node_id() for node in complete_graph_nodes]
     return adjacency_matrix
 
-def generate_random_symmetric_complete_graph_adjacency_matrix(no_of_nodes, max_distance, min_distance = 1):
-    adjacency_matrix = np.array([[0]*no_of_nodes]*no_of_nodes)
+
+def generate_random_symmetric_complete_graph_adjacency_matrix(no_of_nodes, max_distance, min_distance=1):
+    adjacency_matrix = np.array([[0] * no_of_nodes] * no_of_nodes)
     for i in range(no_of_nodes):
         for j in range(no_of_nodes):
             if i == j:
