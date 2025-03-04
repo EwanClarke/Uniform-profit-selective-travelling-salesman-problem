@@ -28,7 +28,7 @@ def two_opt(adjacency_matrix):
 
     while found_improvement:
         found_improvement = False
-        for i in range(0, total_nodes - 1):
+        for i in range(total_nodes - 1):
             for j in range(i + 2, total_nodes):
                 length_delta = (-adjacency_matrix[path[i]][path[i + 1]] - adjacency_matrix[path[j]][
                     path[(j + 1) % total_nodes]]) + (adjacency_matrix[path[i]][path[j]] + adjacency_matrix[path[i + 1]][path[(j + 1)% total_nodes]])

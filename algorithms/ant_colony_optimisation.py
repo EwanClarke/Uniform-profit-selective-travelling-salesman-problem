@@ -7,10 +7,9 @@ from algorithms.utils import find_candidate_nodes, determine_best_tour
 # ant traverses graph with the edge weights and the pheromone weights contributing to the chance of the ant choosing
 #   each node
 # along the path the ant traversed pheromones will be placed with their values corresponding to the performance of the ant
-# depending on effectiveness without, test adding negative pheromones where the ant does not complete a cycle
 
 def stsp_ant_colony_optimisation(adjacency_matrix, max_cost, no_of_ants=250, rate_of_decay=0.7):
-    pheromone_matrix = np.array([[1] * len(adjacency_matrix)] * len(adjacency_matrix))
+    pheromone_matrix = np.array([[1] * len(adjacency_matrix)] * len(adjacency_matrix), dtype=float)
     best_tour = []
     for i in range(no_of_ants):
         ant_tour = ant_traversal(adjacency_matrix, pheromone_matrix, max_cost)
@@ -39,12 +38,12 @@ def ant_traversal(adjacency_matrix, pheromone_matrix, max_cost):
 def generate_choice_weights(adjacency_matrix, pheromone_matrix, current_node, candidate_nodes):
     alpha = 0.6
     beta = 5
-    epsilon = 1e-10
+    small_value = 1e-10
     weights = []
     traversal_costs = []
     pheromone_levels = []
     for candidate_node in candidate_nodes:
-        traversal_costs.append(adjacency_matrix[current_node][candidate_node[0]]+ epsilon)
+        traversal_costs.append(adjacency_matrix[current_node][candidate_node[0]] + small_value)
         pheromone_levels.append(pheromone_matrix[current_node][candidate_node[0]])
     for i in range(0, len(candidate_nodes)):
         weight_for_traversal = pheromone_levels[i] ** alpha / traversal_costs[i] ** beta
@@ -53,7 +52,7 @@ def generate_choice_weights(adjacency_matrix, pheromone_matrix, current_node, ca
 
 
 def update_pheromone_matrix(pheromone_matrix, ant_tour, rate_of_decay):
-    for i in range(0, len(ant_tour) - 1):
+    for i in range(0, len(ant_tour) - 2):
         pheromone_matrix[ant_tour[i]][ant_tour[i + 1]] += ((1 - rate_of_decay) * pheromone_matrix[i][i + 1] +
-                                                          (1 - (1 / len(ant_tour))))
+                                                           (1 - (1 / len(ant_tour))))
     return pheromone_matrix

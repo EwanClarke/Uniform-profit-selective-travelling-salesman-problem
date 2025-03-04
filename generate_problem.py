@@ -15,7 +15,7 @@ def calculate_complete_graph_adjacency_matrix(complete_graph_nodes: [Node]):
     adjacency_matrix = pd.DataFrame(columns=[node.get_node_id() for node in complete_graph_nodes])
     for node_i in complete_graph_nodes:
         for node_j in complete_graph_nodes:
-            adjacency_matrix.loc[node_j.get_node_id(), node_i.get_node_id()] = round(node_i.calculate_distance(node_j))
+            adjacency_matrix.loc[node_j.get_node_id(), node_i.get_node_id()] = np.round(node_i.calculate_distance(node_j))
     adjacency_matrix.index = [node.get_node_id() for node in complete_graph_nodes]
     return adjacency_matrix
 

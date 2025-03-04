@@ -61,14 +61,15 @@ def solve_uniform_profit_knapsack(item_weights, capacity, required_items=None):
         knapsack_weight += item_weights_sorted[0]
         item_weights_sorted.pop(0)
         items_in_knapsack += 1
+        if len(item_weights_sorted) == 0:
+            break
     return items_in_knapsack
 
 
 def branch_and_bound(current_solution: list, adjacency_matrix, budget_remaining, budget, best_solution,
                      node_weight_sums, upper_bound, candidate_nodes=None):
     candidate_nodes = calculate_candidate_nodes(current_solution, budget_remaining, adjacency_matrix, candidate_nodes)
-    if len(current_solution) < len(best_solution) and budget_remaining < node_weight_sums[
-        len(best_solution) - len(current_solution)]:
+    if len(current_solution) < len(best_solution) and budget_remaining < node_weight_sums[len(best_solution) - len(current_solution)]:
         return best_solution
     if len(candidate_nodes) == 0:
         if ((len(current_solution) > len(best_solution)) or

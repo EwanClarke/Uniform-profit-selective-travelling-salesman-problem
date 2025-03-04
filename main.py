@@ -1,6 +1,7 @@
 from algorithms.cheapest_insertion import stsp_cheapest_insertion
 from algorithms.nearest_neighbour_adaption import stsp_nearest_neighbour
 from algorithms.ant_colony_optimisation import stsp_ant_colony_optimisation
+from algorithms.grasp import stsp_grasp
 from graph_visualisation import construct_networkx_visualisation_positional
 from algorithms.utils import tour_length_adjacency_matrix
 from algorithms.exact_method import stsp_exact_algorithm
@@ -14,7 +15,7 @@ import argparse
 from time import perf_counter_ns
 
 if __name__ == '__main__':
-    algorithm_choices = ["cheapest_insertion", "nearest_neighbour", "ant_colony", "branch_and_bound"]
+    algorithm_choices = ["cheapest_insertion", "nearest_neighbour", "ant_colony", "branch_and_bound", "grasp"]
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group()
     group.add_argument("-p", "--problem", help="file name of problem in problems folder to solve, random problem "
@@ -67,6 +68,8 @@ if __name__ == '__main__':
                 results[algorithm] = stsp_ant_colony_optimisation(adjacency_matrix, max_cost)
             case "branch_and_bound":
                 results[algorithm] = stsp_exact_algorithm(adjacency_matrix, max_cost)
+            case "grasp":
+                results[algorithm] = stsp_grasp(adjacency_matrix, max_cost)
         runtimes[algorithm] = perf_counter_ns() - start
 
     if args.compare:

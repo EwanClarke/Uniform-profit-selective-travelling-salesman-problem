@@ -1,4 +1,3 @@
-from time import perf_counter
 
 
 def swap_edges(path, i, j):

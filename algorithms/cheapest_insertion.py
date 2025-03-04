@@ -11,8 +11,6 @@ import numpy as np
 
 # O(n^2 log n)
 def stsp_cheapest_insertion(adjacency_matrix: np.array([[int]]), max_cost: int):
-    previous_node = 0
-    next_node = 0
     current_tour = np.array([0, 0])
     nodes_in_tour: {int} = {0}
     tour_length = 0
